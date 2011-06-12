@@ -1,0 +1,16 @@
+!!! 5
+%html
+  %head
+    %title Gridulous
+    = stylesheet_link_tag :all
+    = javascript_include_tag 'jquery.js'
+    = javascript_include_tag 'jquery-ui.min.js'
+    = load_javascript_for_directory 'vendor'
+    = load_javascript_for_directory 'gridulous'
+    = load_javascript_for_directory "#{controller_name}/#{action_name}"
+    = csrf_meta_tag
+  %body
+    = render 'layouts/header'
+    .clear
+      = yield
+    = render 'layouts/footer'
