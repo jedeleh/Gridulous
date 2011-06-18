@@ -1,4 +1,4 @@
-var PaginationRenderer = Class.$extend({
+var PaginationRenderer = BaseRender.$extend({
   __init__: function(configuration){
     this.configuration = configuration;
   },
@@ -106,7 +106,7 @@ var PaginationRenderer = Class.$extend({
     pagination.append($pagination_group);
     $span = $("<span></span>");
     $span.addClass("pagination-counter");
-    $span.text("Page");
+    $span.html("Page&nbsp;&nbsp;");
     $pagination_group.append($span);
     var $input = $("<input></input>");
     $input.addClass("query-input-field");
@@ -117,7 +117,7 @@ var PaginationRenderer = Class.$extend({
     $pagination_group.append($input);
     $span = $("<span></span>");
     $span.attr("id", "total-pages");
-    $span.text(" of " + this.configuration.query.page);
+    $span.html("&nbsp;&nbsp; of " + this.configuration.query.page);
     $pagination_group.append($span);
   },
 
@@ -151,10 +151,4 @@ var PaginationRenderer = Class.$extend({
     }
   },
 
-  // this is a candidate for refactoring into a base class.
-  new_div: function(css_class) {
-    var div = $("<div></div>");
-    div.addClass(css_class);
-    return div;
-  }
 });

@@ -1,32 +1,39 @@
-var SearchRenderer = Class.$extend({
+var SearchRenderer = BaseRender.$extend({
   __init__: function(configuration){
     this.configuration = configuration;
   },
 
-  render: function(total_table, go_button_function, clear_button_function) {
-    var $search_div = $("<div></div>");
-    $search_div.addClass("search-div");
-    total_table.append($search_div);
+
+  render: function(total_table) {
+    // jQuery dialog id
+    var $search_dialog = $("<div id='search-dialog'></div>");
+    total_table.append($search_dialog);
+
+    var $search_div = this.new_div("search-div");
+    var position = $(total_table).find(".title-bar-search").position;
+    $search_div.attr("style","margin-bottom: -"+this.configuration.size.height+"px; height: auto; width: auto; top: "+position.bottom+"px; left: 503px;");
+    $search_dialog.append($search_div);
 
     var $search_div_inner = $("<div></div>");
     $search_div_inner.addClass("search-div-inner");
     $search_div.append($search_div_inner);
 
-    var $label = $("<label></label>");
-    $label.text("Find");
-    $search_div_inner.append($label);
+    var $fieldset = this.new_tag("fieldset");
+    $search_div_inner.append($fieldset);
+    var $legend = this.new_tag("legend");
+    $fieldset.append($legend);
+    $legend.text("Find");
 
-    var $input = $("<input></input>");
-    $input.addClass("query-input-field");
+    var $input = this.new_tag("input","filter-string-input");
     $input.attr("type", "text");
     $input.attr("size", "30");
     $input.attr("name", "filter-string");
     $input.attr("id", "filter-string");
-    $search_div_inner.append($input);
+    $fieldset.append($input);
 
-    var $select = $("<select></select>");
+    var $select = this.new_tag("select");
     $select.attr("id", "filter-column");
-    $search_div_inner.append($select);
+    $fieldset.append($select);
     for (var i = 0; i < this.configuration.layout.columns.length; i++) {
       column = this.configuration.layout.columns[i];
       var $option = $("<option></option>");
@@ -37,17 +44,6 @@ var SearchRenderer = Class.$extend({
       }
       $select.append($option);
     }
-
-    var $go_button = $("<button></button>");
-    $go_button.text("Go");
-    $go_button.attr("id","go-button");
-    $search_div_inner.append($go_button);
-
-    var $clear_button = $("<button></button>");
-    $clear_button.text("Clear");
-    $clear_button.attr("id","clear-button");
-    $search_div_inner.append($clear_button);
-
-
   }
+
 });

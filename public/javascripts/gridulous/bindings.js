@@ -64,13 +64,6 @@ var Bindings = Class.$extend({
       }
     });
 
-    // advanced search button
-    if (configuration.filters.use_advanced_search) {
-      $(grid_container).find("#advanced-search-button").keypress(function() {
-        // PENDING
-      });
-    }
-
     // refresh button (eventually)
 
     // find box
@@ -99,26 +92,22 @@ var Bindings = Class.$extend({
     });
 
     // column sorts
-    var column_headings = $(grid_container).find("th");
+    var column_headings = $(grid_container).find(".header-cell");
     for (var i = 0; i < column_headings.length; i++) {
       var column = column_headings[i];
       this._bind_column_heading(column, configuration, grid, grid_container);
     }
 
     // checkboxes on custom columns dialog IFF it's in use
-    if (configuration.layout.use_column_visibility_widget == true) {
-      var toggles = $(grid_container).find("#column-chooser-dialog input[type=checkbox]");
-      for (var j = 0; j < toggles.length; j++) {
-        var toggle = toggles[j];
-        this._bind_column_toggle(toggle, configuration, grid, grid_container);
-      }
+    var toggles = $(grid_container).find("#column-chooser-dialog input[type=checkbox]");
+    for (var j = 0; j < toggles.length; j++) {
+      var toggle = toggles[j];
+      this._bind_column_toggle(toggle, configuration, grid, grid_container);
     }
 
-    // now the draggable separators
-    var drags = $(grid_container).find(".grid-draggable");
-    for (var k = 0; k < drags.length; k++) {
-      this._bind_drags(drags[k], configuration, grid, grid_container);
-    }
+    // bind resizable to column containers
+    $(grid_container).find(".content-container").sortable({axis: "x"});
+    $(grid_container).find(".column-container").resizable();
   },
 
   _bind_column_toggle: function(toggle, configuration, grid, grid_container) {
@@ -130,72 +119,18 @@ var Bindings = Class.$extend({
       for (var i = 0; i < columns.length; i++) {
         var column = columns[i];
         if (column.id == column_id) {
+          var column_container = $(grid_container).find("#"+column.id+"-column");
+          Console().log(column_container);
           if (column.hide == true) {
             column.hide = false;
+            $(column_container).removeClass("generic-hide");
           } else {
             column.hide = true;
+            $(column_container).addClass("generic-hide");
           }
           break;
         }
       }
-    });
-  },
-
-  _bind_drags: function(draggable, configuration, grid, grid_container) {
-    var foo = "";
-    $(draggable).bind("dragstart", function(event, ui) {
-      var drag_start= $(draggable).position().left;
-      Console().log("drag start: " +drag_start);
-    });
-    $(draggable).bind("dragstop", function(event, ui) {
-      var drags = $(grid_container).find(".grid-draggable");
-
-      // which column was resized?
-      var splits = draggable.id.split("-")
-      var column_id = splits[0];
-      var column_index = parseInt(splits[2]);
-      var columns = configuration.layout.columns;
-      var column = columns[column_index];
-
-      // calculate the new width for the column that was resized
-      var drag_stop = $(draggable).position().left;
-      var new_width = 0;
-      var index = 0;
-      if (column_index == 0) {
-        new_width = drag_stop - 2;
-      } else {
-        var previous_index = column_index - 1;
-        var find_string = "div[id$='-sep-"+previous_index+"']";
-        new_width = drag_stop - $(grid_container).find(find_string).position().left;
-      }
-      // calculate the delta: drag_stop minus the new width minus the original width
-      var drag_delta = new_width - column.width;
-
-      // set that new width on the column in configuration
-      column.width = new_width;
-
-      // alter the visible width for the header and column cells
-      // header first
-      var target_cells = $(".col"+column_index + " div");
-      $(target_cells).css("width", new_width+"px");
-
-      for( index = index + 1; index < columns.length; index++) {
-        // get the header and cells for each column and adjust their left position
-        var cur_col = columns[index];
-        if (cur_col.hide == false) {
-          var target_cells = $(".col"+index);
-          var left = $(target_cells).position().left;
-          var new_left = left + drag_delta;
-          $(target_cells).css("left", new_left+"px");
-          if (drags[index + 1] && index > column_index - 1) {
-            var drag = drags[index + 1];
-            var drag_left = $(drag).position().left;
-            var new_drag_left = drag_left + drag_delta;
-            $(drag).css("left", new_drag_left+"px");
-          }
-        }
-      }
-
     });
   },
 

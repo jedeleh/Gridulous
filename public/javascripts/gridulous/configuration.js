@@ -22,27 +22,18 @@ var GridSize = Configuration.$extend({
     this.$super(true);
     this.height = 200;
     this.width = 'auto';
-    this.minimum_height = 30;
-    this.minimum_width = 30;
-    this.resizeable = true;
   },
 
   pickle: function() {
     return {
       "height": this.height,
-      "width": this.width,
-      "minimum_height": this.minimum_height,
-      "minimum_width": this.minimum_width,
-      "resizeable": this.resizeable
+      "width": this.width
     };
   },
 
   unpickle: function(representation) {
     this.height= representation.height;
     this.width= representation.width;
-    this.minimum_height= representation.minimum_height;
-    this.minimum_width = representation.minimum_width;
-    this.resizeable = representation.sizeable;
   }
 });
 
@@ -92,11 +83,6 @@ var GridLayout = Configuration.$extend({
   __init__: function() {
     this.$super(true);
     this.use_row_striping = true;
-    this.even_stripe_class = null;
-    this.odd_stripe_class = null;
-    this.use_column_visibility_widget = false;
-    this.header_cell_css_class = null;
-    this.data_cell_css_class = null
     this.columns = [];// { display_name = string; id = string; sortable = boolean; hide = boolean; width = integer; alignment = <left;center;right>; optional = <can it be hidden?> }
   },
 
@@ -111,27 +97,17 @@ var GridLayout = Configuration.$extend({
     }
     return {
       "use_row_striping": this.use_row_striping,
-      "even_stripe_class": this.even_string_class,
-      "odd_stripe_class": this.odd_string_class,
-      "use_column_visibility_widget": this.use_column_visibility_widget,
-      "columns": columns,
-      "header_cell_css_class": this.header_cell_css_class,
-      "data_cell_css_class": this.data_cell_css_class
+      "columns": columns
     }
   },
 
   unpickle: function(representation) {
     this.use_row_striping = representation.use_row_striping;
-    this.even_stripe_class = representation.even_stripe_class;
-    this.odd_stripe_class = representation.odd_stripe_class;
-    this.use_column_visibility_widget = representation.use_column_visibility_widget;
     for (var i = 0; i < representation.columns.length; i++) {
       column = new GridColumn();
       column.unpickle(representation.columns[i]);
       this.columns.append(column);
     }
-    this.header_cell_css_class = representation.header_cell_css_class;
-    this.data_cell_css_class = representation.data_cell_css_class;
   }
 });
 
@@ -190,10 +166,8 @@ var GridButtons = Configuration.$extend({
 var GridPagination = Configuration.$extend({
   __init__: function(enabled) {
     this.$super(enabled);
-    this.custom_pagination_partial = null;  // see custom partials documentation
     this.page_size_options = [10,25,50,100,200];
     this.items_name = "items";
-    this.count_string = "displaying %1 to %2 of %3 %4"; // %1 = page start counter, %2 = page end counter, %3 = total counter, %4 = item name
     this.processing_string = "Processing request...";
     this.error_string = "Processing error...";
     this.no_results_string = "No items found.";  // %1 = item name
@@ -201,10 +175,8 @@ var GridPagination = Configuration.$extend({
 
   pickle: function() {
     return {
-      "custom_pagination_partial": this.custom_pagination_partial,  // see custom partials documentation
       "page_size_options": this.page_size_options,
       "items_name": this.items_name,
-      "count_string": this.count_string,
       "processing_string": this.processing_string,
       "error_string": this.error_string,
       "no_results_string": this.no_results_string
@@ -212,10 +184,8 @@ var GridPagination = Configuration.$extend({
   },
 
   unpickle: function(representation) {
-    this.custom_pagination_partial = representation.custom_pagination_partial;
     this.page_size_options = representation.page_size_options;
     this.items_name = representation.items_name;
-    this.count_string = representation.count_string;
     this.processing_string = representation.processing_string;
     this.error_string = representation.error_string;
     this.no_results_string = representation.no_results_string;
@@ -227,26 +197,18 @@ var GridFilters = Configuration.$extend({
     this.$super(enabled);
     this.use_advanced_search = false;
     this.search_callback = null;
-    this.use_go_button = true;
-    this.use_clear_button = true;
     this.filter_column_names = []; // {display_name: <string>, id: <string>}
   },
 
   pickle: function() {
     return {
       "use_advanced_search": this.use_advanced_search,
-      "search_callback": this.search_callback,
-      "use_go_button": this.use_go_button,
-      "use_clear_button": this.use_clear_button,
       "filter_column_names": this.filter_column_names
     }
   },
 
   unpickle: function(representation) {
     this.use_advanced_search = representation.use_advanced_search;
-    this.search_callback = representation.search_callback;
-    this.use_go_button = representation.use_go_button;
-    this.use_clear_button = representation.use_clear_button;
     this.filter_column_names = representation.filter_column_names;
   }
 });

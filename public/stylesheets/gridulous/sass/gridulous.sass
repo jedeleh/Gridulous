@@ -8,7 +8,6 @@
   margin: 0px
   padding: 0px
 
-
 .gridulous
   font-family: Arial, Helvetica, sans-serif
   font-size: 11px
@@ -40,6 +39,22 @@
   color: $GridTextColor
   padding: 6px
   white-space: nowrap
+
+/* Title bar search button */
+.gridulous .title-bar-search
+  position: absolute
+  top: 4px
+  right: 45px
+  padding: 0px
+  height: 16px
+  width: 16px
+  overflow: hidden
+  border: 1px solid $GridBorderColor
+  cursor: pointer
+
+.gridulous .title-bar-search:hover
+  background-position: left -2px
+  border-color: $HoverBarColor
 
 /* Title bar column configuration button */
 .gridulous .title-bar-column-configure
@@ -122,36 +137,30 @@
   border-right: 1px solid $RightBorderColor
   margin: 1px
 
-/* column headings */
-.gridulous .column-headers
-  background: $GridBackgroundColor url($ColumnHeaderBackground) repeat-x bottom
+/* column container -- this is the vertical div that holds the cells in a column
+.gridulous column-container
+  background: $WhiteBackgroundColor
+  overflow: auto
   position: relative
+
+/* column headings */
+.gridulous .header-cell
+  background: $GridBackgroundColor url($ColumnHeaderBackground) repeat-x bottom
   border: 1px solid $GridBorderColor
   border-bottom: 0px
+  cursor: move
+  height: 25px
   overflow: hidden
+  position: relative
+  width: auto
 
-.gridulous .column-headers table
-  padding: 0px
-  margin: 0px
-
-.gridulous .column-headers tr
-  padding: 0px
-  margin: 0px
-  border-spacing: 0px
-
-.gridulous .column-headers th
-  padding: 0px
-  margin: 0px
-  border-spacing: 0px
-
-.gridulous .column-headers-inner
-  float: left
-
-.gridulous .column-headers sorted
+.gridulous .heading-cell sorted
   background: url($ColumnHeaderSortedBackground) repeat-x 0px -1px
   border-bottom: 0px solid $GridBorderColor
 
-.gridulous .column-headers label
+.gridulous .heading-cell label
+  position: relative
+  top: 5px
   color: $GridTextColor
 
 
@@ -164,68 +173,42 @@
   background: url($SortDownButton) no-repeat center top
 
 /* grid  body */
-.gridulous .content-div
+.gridulous .content-container
+  position: relative
+  overflow: auto
+
+.gridulous .content-cell
   border: 1px solid $GridBorderColor
   border-top: 0px
-  background: $WhiteBackgroundColor
-  overflow: auto
+  height: 25px
+  width: auto
+  overflow: hidden
   position: relative
 
-.gridulous .content-div table
-  border-bottom: 1px solid $GridBorderColor
-
-.gridulous .content-div tr.even-row td div
+.gridulous .content-cell .even-row
   background: $WhiteBackgroundColor
-  border-bottom: 1px solid $BottomBorderColor
+  height: 25px
   overflow: hidden
-  width: inherit
 
-.gridulous .content-div tr.odd-row td
+.gridulous .content-cell .odd-row
   background: $OddCellBackgroundColor
-  border-bottom: 1px solid $BottomBorderColor
-
-.gridulous .content-div tr.odd-row td div
-  background: $OddCellBackgroundColor
-  border-bottom: 1px solid $BottomBorderColor
+  height: 25px
   overflow: hidden
-  width: inherit
+
+.gridulous .content-cell label
+  position: relative
+  top: 5px
+  left: 2px
+  color: $GridTextColor
+
 
 .gridulous .border-test
   border: 1px solid red
 
-/* draggable column separators */
-.gridulous .column-drag
-  float: left
-  position: absolute
-  z-index: 2
-  overflow: visible
-
-.gridulous .column-drag div
-  float: left
-  background: url($ColumnDragLine) repeat-y 2px center
-  position: absolute
-  cursor: col-resize
-  border-spacing: 1px
-
-.gridulous .column-drag div:hover,.column-drag div.dragging
-  background: url($ColumnDragLine) repeat-y 2px center
-
-/* cell */
-.gridulous .cell-container
-  border: solid $GridBorderColor
-  border-top: 0px
-  border-left: 0px
-  border-bottom: 0px
-
-.gridulous .data-span
-
-/* search bar */
+/* search dialog */
 .gridulous .search-div
-  background: $GridBackgroundColor url($SearchBarBackground) repeat-x top
   position: relative
-  border: 1px solid $GridBorderColor
-  border-top: 0px
-  overflow: hidden
+
 
 .gridulous .search-div-inner
   float: left
@@ -233,6 +216,15 @@
   padding: 5px
   padding-left: 5px
   width: 1024px
+
+.gridulous .search-div-inner fieldset
+  height: 200px
+  width: 300px
+  color: $GridTextColor
+
+.gridulous .search-div-inner fieldset legend
+  color: $GridTextColor
+
 
 /* pagination bar */
 .gridulous .pagination-div
@@ -242,6 +234,7 @@
   overflow: hidden
   white-space: nowrap
   position: relative
+  height: 35px
 
 .gridulous .pagination-div-inner
   margin: 3px
@@ -252,9 +245,11 @@
 .gridulous .pagination-group
   float: left
   background: none
-  height: 24px
   margin: 0px 5px
-  padding-top: 1px
+  padding-top: 4px
+
+.gridulous .pagination-select
+  padding-top: 3px
 
 .gridulous .pagination-image-advanced-search
   background: url($AdvancedSearchButton) no-repeat center
@@ -296,6 +291,7 @@
   overflow: visible
 
 .gridulous .pagination-counter
+  padding: 3px
   position: relative
   overflow: visible
 

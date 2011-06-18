@@ -1,4 +1,4 @@
-var ButtonBarRenderer = Class.$extend({
+var ButtonBarRenderer = BaseRender.$extend({
   __init__: function(configuration) {
     this.configuration = configuration;
   },

@@ -1,4 +1,6 @@
 Gridulous::Application.routes.draw do
+  resources :cars
+
   resources :people do
     collection do
       post 'grid'

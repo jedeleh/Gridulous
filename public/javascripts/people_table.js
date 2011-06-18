@@ -63,7 +63,6 @@ $(document).ready(function() {
   column.alignment = "center"
   layout.columns.push(column);
   // default query
-  layout.use_column_visibility_widget = true;
   var query = grid_test.configuration.query;
   // sort
   query.sort_column = "last_name";

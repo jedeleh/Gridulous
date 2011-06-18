@@ -2,3 +2,8 @@
 db/*.sqlite3
 log/*.log
 tmp/
+public/gridback/
+public/stylesheets/backups
+*.sassc
+*.swp
+*.css
