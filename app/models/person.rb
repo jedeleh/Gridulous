@@ -16,7 +16,7 @@ class Person < ActiveRecord::Base
     results[:rows] = []
       data.each do |person|
       results[:rows] << {
-        :last_name => "<a href='/people/#{person.id}/edit'>#{person.last_name}</a>",
+        :last_name => ["/people/#{person.id}/edit","#{person.last_name}"],
         :first_name => person.first_name,
         :middle_initial => person.middle_initial,
         :email => person.email,

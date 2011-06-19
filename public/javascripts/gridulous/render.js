@@ -87,9 +87,24 @@ var Renderer = BaseRender.$extend({
     var inner_cell = this.new_div(striping_class);
     cell.append(inner_cell);
 
-    var label = this.new_tag("label");
-    label.html(data);
-    inner_cell.append(label);
+    if (column.type == "link") {
+      var anchor = this.new_tag("a");
+      anchor.attr("href", data[0]);
+      var label = this.new_tag("label");
+      label.html(data[1]);
+      anchor.append(label);
+      inner_cell.append(anchor);
+    } else if (column.type == "checkbox") {
+      var input = this.new_tag("input");
+      input.attr("type", "checkbox");
+      input.attr("id", data);
+      inner_cell.append(input);
+    } else {
+      var label = this.new_tag("label");
+      label.html(data);
+      inner_cell.append(label);
+    }
+
     return cell;
   },
 
