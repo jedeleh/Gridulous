@@ -56,7 +56,7 @@ var GridFramework = Class.$extend({
 
   // set up the table minus data
   render_grid: function() {
-    this.renderer.render();
+    this.renderer.render(this);
     this.bindings.bind_events(this.configuration, this);
   },
 

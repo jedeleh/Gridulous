@@ -6,7 +6,7 @@ var SearchRenderer = BaseRender.$extend({
 
   render: function(total_table) {
     // jQuery dialog id
-    var $search_dialog = $("<div id='search-dialog'></div>");
+    var $search_dialog = $("<div id='"+this.configuration.grid_id+"-gridulous-search-dialog'></div>");
     total_table.append($search_dialog);
 
     var $search_div = this.new_div("search-div");

@@ -11,8 +11,9 @@ class GridBuilder
     end
 
     # filters
-    grid_configuration.filters.each do |filter|
-      model_query = model_query.where(filter)
+    grid_configuration.filters.each do |column, value|
+      value_string = "%#{value}%"
+      model_query = model_query.where(column.to_sym.matches => value_string)
     end
 
     # sorts
@@ -45,7 +46,8 @@ class GridBuilder
     set = false
     model_class = Object::const_get(model_name)
     # set columns
-    #model_query = model_class.select(grid_configuration.columns.join(", "))
+
+    model_query = model_class.select("id")
 
     # joins
     grid_configuration.joins.each do |join_symbol|
@@ -54,8 +56,9 @@ class GridBuilder
     end
 
     # filters
-    grid_configuration.filters.each do |filter|
-      model_query = model_query.where(filter)
+    grid_configuration.filters.each do |column, value|
+      value_string = "%#{value}%"
+      model_query = model_query.where(column.to_sym.matches => value_string)
       set = true
     end
 

@@ -8,7 +8,7 @@ var Renderer = BaseRender.$extend({
 
   // initial rendering of the grid
   //
-  render: function() {
+  render: function(grid) {
     ColumnChooserRenderer(this.configuration).render();
     TitleBarRenderer(this.configuration).render();
 
@@ -16,13 +16,10 @@ var Renderer = BaseRender.$extend({
     ButtonBarRenderer(this.configuration).render(this.total_table);
     this.content_container = ColumnHeadersRenderer(this.configuration).render(this.total_table);
     this.total_table.append(this.new_div("clear-both"));
-    this._render_drag_section();
     PaginationRenderer(this.configuration).render(this.total_table);
     SearchRenderer(this.configuration).render(this.total_table);
+    SearchDialog(this.configuration, grid);
     this.total_table.append(this.new_div("clear-both"));
-  },
-
-  _render_drag_section: function() {
   },
 
   _render_total_table: function() {

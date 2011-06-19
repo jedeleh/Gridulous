@@ -1,7 +1,9 @@
-$(function() {
-  $.fx.speeds._default = 400;
-  $(function() {
-    $( "#search-dialog" ).dialog({
+var SearchDialog = Class.$extend({
+  __init__: function(configuration, grid) {
+    $.fx.speeds._default = 400;
+    Console().log("preparing dialog");
+    var dialog_id = "#"+configuration.grid_id+"-gridulous-search-dialog";
+    $( dialog_id  ).dialog({
       autoOpen: false,
       show: "blind",
       hide: "blind",
@@ -9,42 +11,31 @@ $(function() {
       width: 500,
       modal: true,
       buttons: {
-				Go: function() {
-          on_go();
-				},
-				Clear: function() {
-          on_clear();
-				},
+        Go: function() {
+          configuration.query.filter_string = $( dialog_id ).find("#filter-string").val();
+          configuration.query.filter_column = $( dialog_id ).find("#filter-column").val();
+          configuration.query.page = 1;
+          grid.execute_query();
+        },
+        Clear: function() {
+          $( dialog_id ).find("#filter-string").val("");
+          configuration.query.filter_string = "";
+          configuration.query.page = 1;
+          grid.execute_query();
+        },
         Done: function() {
-					$( this ).dialog( "close" );
+          $( this ).dialog( "close" );
         }
-			}
+      }
     });
 
     $(".ui-dialog-titlebar").attr("style", "display:none;");
 
     $(".title-bar-search").click(function() {
-      Console().log("opening");
-			$( "#search-dialog" ).dialog( "open" );
-			return false;
-		});
-
-  });
+      $( dialog_id ).dialog( "open" );
+      return false;
+    });
+    Console().log("done preparing dialog");
+  }
 });
 
-function on_go() {
-  Console().log("execute search...");
-  extract_filter_information();
-  execute_filter_search();
-}
-
-function on_clear() {
-}
-
-function extract_filter_information() {
-  return null;
-}
-
-function execute_filter_search() {
-  return null;
-}

@@ -3,7 +3,7 @@ class Person < ActiveRecord::Base
     # given the form parameters, build the configuration that will be used to configure the sql
     grid_configuration.columns = []
     if parameters["filter_column"] and parameters["filter_string"].length > 0
-      grid_configuration.filters = [%{#{parameters["filter_column"]} LIKE #{parameters["filter_string"]}}]
+      grid_configuration.filters = [[parameters["filter_column"],parameters["filter_string"]]]
     end
     grid_configuration.sorts = [%{#{parameters["sort_column"]} #{parameters["sort_order"]}}]
     grid_configuration.limit = parameters["page_size"]

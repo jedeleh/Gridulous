@@ -76,14 +76,6 @@ var Bindings = Class.$extend({
       }
     });
 
-    // go button
-    $(grid_container).find("#go-button").click(function() {
-      configuration.query.filter_string = $(grid_container).find("#filter-string").val();
-      configuration.query.filter_column = $(grid_container).find("#filter-column").val();
-      configuration.query.page = 1;
-      grid.execute_query();
-    });
-
     // clear button
     $(grid_container).find("#t").click(function() {
       configuration.query.filter_string = "";
