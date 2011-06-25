@@ -1,12 +1,12 @@
-var ColumnHeadersRenderer = BaseRender.$extend({
+var ColumnHeadersRenderer = Class.$extend({
   __init__: function(configuration){
     this.configuration = configuration;
+    this.utils = new RenderUtils();
   },
 
   render: function(total_table) {
-    var content_container = this.new_div("content-container");
-    var style = this.build_style(["width","height"],[this.configuration.size.width + 10, this.configuration.size.height + 10]);
-    content_container.attr("style", style);
+    var content_container = this.utils.new_div("content-container");
+    this.utils.add_style(["width","height"],[this.configuration.size.width + 10, this.configuration.size.height + 10],content_container);
 
     var columns = this.configuration.layout.columns;
     var total_width = 0;
@@ -27,19 +27,17 @@ var ColumnHeadersRenderer = BaseRender.$extend({
   },
 
   _render_column_container: function(column, index) {
-    var column_div = this.new_div("column-container float-left column-border");
+    var column_div = this.utils.new_div("column-container float-left column-border");
     column_div.attr("id", column.id + "-column");
-    var style = this.build_style(["width", "height"],[column.width + "px", this.configuration.size.height + "px"]);
-    column_div.attr("style", style);
+    this.utils.add_style(["width", "height"],[column.width + "px", this.configuration.size.height + "px"], column_div);
     return column_div;
   },
 
   _render_column: function(column, index) {
-    var heading = this.new_div("cell-border clear-both header-cell");
+    var heading = this.utils.new_div("cell-border clear-both header-cell");
     heading.attr("id", column.id);
-    var style = this.build_style(["text-align"],["center"]);
-    heading.attr("style", style);
-    var span = this.new_tag("span");
+    this.utils.add_style(["text-align"],["center"], heading);
+    var span = this.utils.new_tag("span");
     heading.append(span);
     span.text(column.display_name);
     return heading;

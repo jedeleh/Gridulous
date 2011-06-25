@@ -112,7 +112,7 @@ var Bindings = Class.$extend({
         var column = columns[i];
         if (column.id == column_id) {
           var column_container = $(grid_container).find("#"+column.id+"-column");
-          Console().log(column_container);
+          //Console().log(column_container);
           if (column.hide == true) {
             column.hide = false;
             $(column_container).removeClass("generic-hide");

@@ -1,6 +1,7 @@
-var ButtonBarRenderer = BaseRender.$extend({
+var ButtonBarRenderer = Class.$extend({
   __init__: function(configuration) {
     this.configuration = configuration;
+    this.utils = new RenderUtils();
   },
 
   bind_button_event: function(element, event_string, func) {

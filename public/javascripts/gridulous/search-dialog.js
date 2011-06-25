@@ -1,7 +1,7 @@
 var SearchDialog = Class.$extend({
   __init__: function(configuration, grid) {
     $.fx.speeds._default = 400;
-    Console().log("preparing dialog");
+    //Console().log("preparing dialog");
     var dialog_id = "#"+configuration.grid_id+"-gridulous-search-dialog";
     $( dialog_id  ).dialog({
       autoOpen: false,
@@ -35,7 +35,7 @@ var SearchDialog = Class.$extend({
       $( dialog_id ).dialog( "open" );
       return false;
     });
-    Console().log("done preparing dialog");
+    //Console().log("done preparing dialog");
   }
 });
 

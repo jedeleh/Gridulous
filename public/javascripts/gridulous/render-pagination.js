@@ -1,52 +1,53 @@
-var PaginationRenderer = BaseRender.$extend({
+var PaginationRenderer = Class.$extend({
   __init__: function(configuration){
     this.configuration = configuration;
+    this.utils = new RenderUtils();
   },
 
   render: function(total_table) {
-    var $pagination_div = this.new_div("pagination-div");
+    var $pagination_div = this.utils.new_div("pagination-div");
     total_table.append($pagination_div);
 
-    var $pagination_inner = this.new_div("pagination-inner-div");
+    var $pagination_inner = this.utils.new_div("pagination-inner-div");
     $pagination_div.append($pagination_inner);
 
     if (this.configuration.filters.use_advanced_search == true) {
       this._render_advanced_search($pagination_inner);
 
-      $separator = this.new_div("button-separator");
+      $separator = this.utils.new_div("button-separator");
       $pagination_inner.append($separator);
     }
 
     this._render_page_size_select($pagination_inner);
 
-    $separator = this.new_div("button-separator");
+    $separator = this.utils.new_div("button-separator");
     $pagination_inner.append($separator);
 
     this._render_before($pagination_inner);
 
-    $separator = this.new_div("button-separator");
+    $separator = this.utils.new_div("button-separator");
     $pagination_inner.append($separator);
 
     this._render_current($pagination_inner);
 
-    $separator = this.new_div("button-separator");
+    $separator = this.utils.new_div("button-separator");
     $pagination_inner.append($separator);
 
     this._render_after($pagination_inner);
 
-    $separator = this.new_div("button-separator");
+    $separator = this.utils.new_div("button-separator");
     $pagination_inner.append($separator);
 
     this._render_display_text($pagination_inner);
 
-    $clear_both = this.new_div("clear-both");
+    $clear_both = this.utils.new_div("clear-both");
     $pagination_inner.append($clear_both);
 
   },
 
   _render_display_text: function(pagination) {
     // this is the "displaying x to y of z items" string
-    var $pagination_group = this.new_div("pagination-group");
+    var $pagination_group = this.utils.new_div("pagination-group");
     pagination.append($pagination_group);
     var $span = $("<span></span>");
     $span.addClass("displaying-span");
@@ -58,51 +59,47 @@ var PaginationRenderer = BaseRender.$extend({
 
   _render_before: function(pagination) {
     // group for the previous and first buttons
-    var $pagination_group = this.new_div("pagination-group");
+    var $pagination_group = this.utils.new_div("pagination-group");
     pagination.append($pagination_group);
 
     // first page button
-    var $first_button = this.new_div("pagination-image-first");
-    $first_button.addClass("pagination-button");
+    var $first_button = this.utils.new_div("pagination-button");
     $first_button.attr("id", "first-button");
     $pagination_group.append($first_button);
-    var $span = $("<span></span>");
-    $first_button.append($span);
+    var $first_page_span = this.utils.new_tag("span", "ui-icon ui-icon-seek-first");
+    $first_button.append($first_page_span);
 
     // previous page button
-    var $previous_button = this.new_div("pagination-image-previous");
-    $previous_button.addClass("pagination-button");
+    var $previous_button = this.utils.new_div("pagination-button");
     $previous_button.attr("id", "previous-button");
     $pagination_group.append($previous_button);
-    $span = $("<span></span>");
-    $previous_button.append($span);
+    var $previous_page_span = this.utils.new_tag("span", "ui-icon ui-icon-seek-prev");
+    $previous_button.append($previous_page_span);
   },
 
   _render_after: function(pagination) {
     // group for the next and last buttons
-    $pagination_group = this.new_div("pagination-group");
+    $pagination_group = this.utils.new_div("pagination-group");
     pagination.append($pagination_group);
 
     // next page button
-    var $next_button = this.new_div("pagination-image-next");
-    $next_button.addClass("pagination-button");
+    var $next_button = this.utils.new_div("pagination-button");
     $next_button.attr("id", "next-button");
     $pagination_group.append($next_button);
-    $span = $("<span></span>");
-    $next_button.append($span);
+    var $next_page_span = this.utils.new_tag("span", "ui-icon ui-icon-seek-next");
+    $next_button.append($next_page_span);
 
     // last page button
-    var $last_button = this.new_div("pagination-image-last");
-    $last_button.addClass("pagination-button");
+    var $last_button = this.utils.new_div("pagination-button");
     $last_button.attr("id", "last-button");
     $pagination_group.append($last_button);
-    $span = $("<span></span>");
-    $last_button.append($span);
+    var $last_page_span = this.utils.new_tag("span", "ui-icon ui-icon-seek-end");
+    $last_button.append($last_page_span);
   },
 
   _render_current: function(pagination) {
     // group for page text box
-    $pagination_group = this.new_div("pagination-group");
+    $pagination_group = this.utils.new_div("pagination-group");
     pagination.append($pagination_group);
     $span = $("<span></span>");
     $span.addClass("pagination-counter");
@@ -122,9 +119,9 @@ var PaginationRenderer = BaseRender.$extend({
   },
 
   _render_advanced_search: function(pagination) {
-    var $pagination_group = this.new_div("pagination-group");
+    var $pagination_group = this.utils.new_div("pagination-group");
     pagination.append($pagination_group);
-    var $advanced_search = this.new_div("pagination-image-advanced-search");
+    var $advanced_search = this.utils.new_div("pagination-image-advanced-search");
     $advanced_search.addClass("pagination-button");
     $advanced_search.attr("id", "advanced-search-button");
     $pagination_group.append($advanced_search);
@@ -134,7 +131,7 @@ var PaginationRenderer = BaseRender.$extend({
 
 
   _render_page_size_select: function(pagination) {
-    var $pagination_group = this.new_div("pagination-group");
+    var $pagination_group = this.utils.new_div("pagination-group");
     pagination.append($pagination_group);
     var $select = $("<select></select>");
     $select.attr("id", "page-size"); // select event bound to this id!

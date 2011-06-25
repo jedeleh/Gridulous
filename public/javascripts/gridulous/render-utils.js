@@ -1,4 +1,4 @@
-var BaseRender = Class.$extend({
+var RenderUtils = Class.$extend({
   // this is a candidate for refactoring into a base class.
   new_div: function( css_class ) {
     var div = $("<div></div>");
@@ -11,12 +11,12 @@ var BaseRender = Class.$extend({
     return div;
   },
 
-  build_style: function( props, values ) {
+  add_style: function( props, values, tag ) {
     buffer = "";
     for (var i = 0; i < props.length && i < values.length; i++) {
       buffer += props[i] + ": " + values[i] + ";";
     }
-    return buffer;
+    $(tag).attr("style", buffer);
   },
 
   new_tag: function( tag_name, css_class) {

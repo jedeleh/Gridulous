@@ -40,65 +40,34 @@
   padding: 6px
   white-space: nowrap
 
+.gridulous .title-bar-button
+  height: 22px
+  width: 22px
+  overflow: hidden
+  cursor: pointer
+
+.gridulous .title-bar-button:hover
+  border: 1px solid $HoverBarColor
+  background-position: left -2px
+  border-color: $HoverBarColor
+
 /* Title bar search button */
 .gridulous .title-bar-search
   position: absolute
   top: 4px
-  right: 45px
-  padding: 0px
-  height: 16px
-  width: 16px
-  overflow: hidden
-  border: 1px solid $GridBorderColor
-  cursor: pointer
-
-.gridulous .title-bar-search:hover
-  background-position: left -2px
-  border-color: $HoverBarColor
+  right: 55px
 
 /* Title bar column configuration button */
 .gridulous .title-bar-column-configure
   position: absolute
   top: 4px
-  right: 24px
-  padding: 0px
-  height: 16px
-  width: 16px
-  overflow: hidden
-  border: 1px solid $GridBorderColor
-  cursor: pointer
-
-.gridulous .title-bar-column-configure:hover
-  background-position: left -2px
-  border-color: $HoverBarColor
+  right: 29px
 
 /* Title bar hide/show button */
 .gridulous .title-bar-toggle
   position: absolute
   top: 4px
   right: 3px
-  padding: 0px
-  height: 16px
-  width: 16px
-  overflow: hidden
-  border: 1px solid $GridBorderColor
-  cursor: pointer
-
-.gridulous .title-bar-toggle:hover
-  background-position: left -2px
-  border-color: $HoverBarColor
-
-.gridulous .title-bar-toggle span
-  display: block
-  border-left: 1px solid $LeftBorderColor
-  border-top: 1px solid $TopBorderColor
-  border-bottom: 1px solid $BottomBorderColor
-  width: 14px
-  height: 14px
-  background: url($TitleBarUpButton) no-repeat center
-
-.gridulous .title-bar-toggle.vsible span
-  background: url($TitleBarDownButton) no-repeat center
 
 /* button tool bar */
 .gridulous .button-bar
@@ -175,6 +144,9 @@
 /* grid  body */
 .gridulous .content-container
   position: relative
+  border: 1px solid $GridBorderColor
+  border-top: 0px
+  border-bottom: 0px
   overflow: auto
 
 .gridulous .content-cell
@@ -230,7 +202,6 @@
 .gridulous .pagination-div
   background: url($PaginationBarBackground) repeat-x 0 -1px
   border: 1px solid $GridBorderColor
-  border-top: 0px
   overflow: hidden
   white-space: nowrap
   position: relative
@@ -251,21 +222,6 @@
 .gridulous .pagination-select
   padding-top: 3px
 
-.gridulous .pagination-image-advanced-search
-  background: url($AdvancedSearchButton) no-repeat center
-
-.gridulous .pagination-image-first
-  background: url($FirstPageButton) no-repeat center
-
-.gridulous .pagination-image-previous
-  background: url($PreviousPageButton) no-repeat center
-
-.gridulous .pagination-image-next
-  background: url($NextPageButton) no-repeat center
-
-.gridulous .pagination-image-last
-  background: url($LastPageButton) no-repeat center
-
 .gridulous .pagination-image-reload
   background: url($ReloadPageButton) no-repeat center
 
@@ -279,6 +235,9 @@
   border: 0px
   cursor: pointer
   overflow: hidden
+
+.gridulous .pagination-button-adjust
+  padding-top: 1px
 
 .gridulous .pagination-button:hover
   width: 20px

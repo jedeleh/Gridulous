@@ -1,6 +1,7 @@
-var SearchRenderer = BaseRender.$extend({
+var SearchRenderer = Class.$extend({
   __init__: function(configuration){
     this.configuration = configuration;
+    this.utils = new RenderUtils();
   },
 
 
@@ -9,7 +10,7 @@ var SearchRenderer = BaseRender.$extend({
     var $search_dialog = $("<div id='"+this.configuration.grid_id+"-gridulous-search-dialog'></div>");
     total_table.append($search_dialog);
 
-    var $search_div = this.new_div("search-div");
+    var $search_div = this.utils.new_div("search-div");
     var position = $(total_table).find(".title-bar-search").position;
     $search_div.attr("style","margin-bottom: -"+this.configuration.size.height+"px; height: auto; width: auto; top: "+position.bottom+"px; left: 503px;");
     $search_dialog.append($search_div);
@@ -18,20 +19,20 @@ var SearchRenderer = BaseRender.$extend({
     $search_div_inner.addClass("search-div-inner");
     $search_div.append($search_div_inner);
 
-    var $fieldset = this.new_tag("fieldset");
+    var $fieldset = this.utils.new_tag("fieldset");
     $search_div_inner.append($fieldset);
-    var $legend = this.new_tag("legend");
+    var $legend = this.utils.new_tag("legend");
     $fieldset.append($legend);
     $legend.text("Find");
 
-    var $input = this.new_tag("input","filter-string-input");
+    var $input = this.utils.new_tag("input","filter-string-input");
     $input.attr("type", "text");
     $input.attr("size", "30");
     $input.attr("name", "filter-string");
     $input.attr("id", "filter-string");
     $fieldset.append($input);
 
-    var $select = this.new_tag("select");
+    var $select = this.utils.new_tag("select");
     $select.attr("id", "filter-column");
     $fieldset.append($select);
     for (var i = 0; i < this.configuration.layout.columns.length; i++) {

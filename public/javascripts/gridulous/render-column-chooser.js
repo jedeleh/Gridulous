@@ -1,6 +1,7 @@
-var ColumnChooserRenderer = BaseRender.$extend({
+var ColumnChooserRenderer = Class.$extend({
   __init__: function(configuration) {
     this.configuration = configuration;
+    this.utils = new RenderUtils();
   },
 
   render: function() {
@@ -10,14 +11,14 @@ var ColumnChooserRenderer = BaseRender.$extend({
     var $chooser_dialog = $("<div id='column-chooser-dialog'></div>");
     $grid.append($chooser_dialog);
 
-    var $chooser_div = this.new_div("column-chooser-div");
+    var $chooser_div = this.utils.new_div("column-chooser-div");
     $chooser_div.attr("style","margin-bottom: -"+this.configuration.size.height+"px; height: auto; width: auto; top: 75px; left: 503px;");
     $chooser_dialog.append($chooser_div);
 
-    var $table = this.new_tag("table");
+    var $table = this.utils.new_tag("table");
     $chooser_div.append($table);
 
-    var $tbody = this.new_tag("tbody");
+    var $tbody = this.utils.new_tag("tbody");
     $table.append($tbody);
 
     var columns = this.configuration.layout.columns;
@@ -28,13 +29,13 @@ var ColumnChooserRenderer = BaseRender.$extend({
   },
 
   _generate_chooser_row: function(column, index) {
-    var $tr = this.new_tag("tr");
+    var $tr = this.utils.new_tag("tr");
     var axis_string = "col" + index;
 
-    var $td_top = this.new_tag("td","show-hide-input");
+    var $td_top = this.utils.new_tag("td","show-hide-input");
     $tr.append($td_top);
 
-    var $check_box = this.new_tag("input", "show-hide-checkbox");
+    var $check_box = this.utils.new_tag("input", "show-hide-checkbox");
     $check_box.attr("id", column.id + "-toggle");
     if (column.optional == true) {
       $check_box.attr("onclick", "ontoggle_column('" + axis_string + "','"+this.configuration.id+"');");
@@ -50,7 +51,7 @@ var ColumnChooserRenderer = BaseRender.$extend({
     }
     $td_top.append($check_box);
 
-    var $td_label = this.new_tag("td", "show-hide-label");
+    var $td_label = this.utils.new_tag("td", "show-hide-label");
     $tr.append($td_label);
 
     var $label = $("<label>"+column.display_name+"</label>");
