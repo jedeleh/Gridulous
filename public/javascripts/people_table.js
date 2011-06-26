@@ -7,6 +7,15 @@ $(document).ready(function() {
   people_grid.configuration.metadata.action_uri = "/people/grid";
   people_grid.configuration.size.width = 1000;
 
+  // test hooks
+  hooks = people_grid.configuration.hooks;
+  hooks.on_submit = function() {
+    Console().log("on submit");
+  }
+  hooks.on_success = function(data) {
+    Console().log("on success");
+  }
+
   // setup the columns.
   var layout = people_grid.configuration.layout;
   var layout_columns = [];

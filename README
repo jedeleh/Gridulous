@@ -18,7 +18,9 @@ Other plugins you will need:
 
 The checked in version is on top of a simple Ruby on Rails project but with the four above tools you can use it anywhere you want. The RoR part uses a mostly standard set up. The big difference is that I prefer HAML to ERB.
 
-Once you have those things installed you can grab the contents of these directories and put them where you wish:
+Once you have those things installed download the gridulous.zip and put the various parts where you want in your project.
+
+Alternatively you can grab the contents of the following directories:
 
 public/stylesheets/gridulous/
 public/stylesheets/gridulous/sass/

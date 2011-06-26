@@ -3,23 +3,8 @@
 // Each configuration object comes with its own defaults, so the client only
 // need change the exact things that are needed.
 
-var Configuration = Class.$extend({
-  __init__: function(enabled) {
-    this.enabled = enabled;
-  },
-
-  pickle: function() {
-    // must override this
-  },
-
-  unpickle: function(representation) {
-    // must override this
-  }
-});
-
-var GridSize = Configuration.$extend({
+var GridSize = Class.$extend({
   __init__: function() {
-    this.$super(true);
     this.height = 200;
     this.width = 'auto';
   },
@@ -37,7 +22,7 @@ var GridSize = Configuration.$extend({
   }
 });
 
-var GridColumn = Configuration.$extend({
+var GridColumn = Class.$extend({
   __init__: function() {
     this.display_name = "";
     this.id = "";
@@ -79,9 +64,8 @@ var GridColumn = Configuration.$extend({
   }
 });
 
-var GridLayout = Configuration.$extend({
+var GridLayout = Class.$extend({
   __init__: function() {
-    this.$super(true);
     this.use_row_striping = true;
     this.columns = [];// { display_name = string; id = string; sortable = boolean; hide = boolean; width = integer; alignment = <left;center;right>; optional = <can it be hidden?> }
   },
@@ -119,9 +103,8 @@ var GridLayout = Configuration.$extend({
   }
 });
 
-var GridQuery = Configuration.$extend({
+var GridQuery = Class.$extend({
   __init__: function() {
-    this.$super(true);
     this.filter_string = "";
     this.filter_column = null;
     this.sort_column = null;
@@ -154,9 +137,8 @@ var GridQuery = Configuration.$extend({
   }
 });
 
-var GridButton = Configuration.$extend({
-  __init__: function(enabled) {
-    this.$super(enabled);
+var GridButton = Class.$extend({
+  __init__: function() {
     this.name = "";
     this.css_class = "";
     this.action = "";
@@ -180,9 +162,8 @@ var GridButton = Configuration.$extend({
   }
 });
 
-var GridButtons = Configuration.$extend({
-  __init__: function(enabled) {
-    this.$super(enabled);
+var GridButtons = Class.$extend({
+  __init__: function() {
     this.buttons = []; // { name: string, css_class: string, action: javascript method, :icon: image for left side of button}
   },
 
@@ -214,13 +195,12 @@ var GridButtons = Configuration.$extend({
       button.unpickle(representation.buttons[i]);
       this.buttons.push(button);
     }
-   this.buttons = representation.buttons;
+    this.buttons = representation.buttons;
   }
 });
 
-var GridPagination = Configuration.$extend({
-  __init__: function(enabled) {
-    this.$super(enabled);
+var GridPagination = Class.$extend({
+  __init__: function() {
     this.page_size_options = [10,25,50,100,200];
     this.items_name = "items";
     this.processing_string = "Processing request...";
@@ -247,9 +227,30 @@ var GridPagination = Configuration.$extend({
   }
 });
 
-var GridFilters = Configuration.$extend({
-  __init__: function(enabled) {
-    this.$super(enabled);
+var GridHooks = Class.$extend({
+  __init__: function() {
+    this.on_submit = null;
+    this.on_success = null;
+    this.on_failure = null;
+  },
+
+  pickle: function() {
+    return {
+      "on_submit": this.on_submit,
+      "on_success": this.on_success,
+      "on_failure": this.on_failure
+    };
+  },
+
+  unpickle: function(representation) {
+    this.on_submit = representation.on_submit;
+    this.on_success = representation.on_success;
+    this.on_failure = representation.on_failure;
+  }
+});
+
+var GridFilters = Class.$extend({
+  __init__: function() {
     this.use_advanced_search = false;
     this.search_callback = null;
     this.filter_column_names = []; // {display_name: <string>, id: <string>}
@@ -278,9 +279,10 @@ var GridConfiguration = Class.$extend({
     this.size = new GridSize();
     this.layout = new GridLayout();
     this.query = new GridQuery();
-    this.buttons = new GridButtons(true);
-    this.pagination = new GridPagination(true);
-    this.filters = new GridFilters(true);
+    this.buttons = new GridButtons();
+    this.pagination = new GridPagination();
+    this.filters = new GridFilters();
+    this.hooks = new GridHooks();
     // configuration defaults
     this.metadata = {
       title: "jGrid",
@@ -307,7 +309,9 @@ var GridConfiguration = Class.$extend({
       "query": this.query.pickle(),
       "buttons": this.buttons.pickle(),
       "pagination": this.pagination.pickle(),
-      "filters": this.filters.pickle()
+      "filters": this.filters.pickle(),
+      "hooks": this.hooks.pickle(),
+      "metadata": this.metadata
     }
   },
 
@@ -320,6 +324,8 @@ var GridConfiguration = Class.$extend({
     this.buttons.unpickle(representation.buttons);
     this.pagination.unpickle(representation.pagination);
     this.filters.unpickle(representation.filters);
+    this.hooks.unpickle(representation.hooks);
+    this.metadata = representation.metadata;
   }
 });
 
