@@ -98,7 +98,22 @@ var Bindings = Class.$extend({
     }
 
     // bind resizable to column containers
-    $(grid_container).find(".content-container").sortable({axis: "x"});
+    $(grid_container).find(".content-container").sortable({
+      axis: "x",
+      stop: function(event, ui) {
+        columns = configuration.layout.columns;
+        var new_column_list = [];
+        $(".header-cell").each(function(index, element) {
+            var id = $(element).attr("id");
+            $.each(columns, function(index, column) {
+              if (column.id == id) {
+                new_column_list.push(column);
+              }
+            });
+          });
+        configuration.layout.columns = new_column_list;
+      }
+    });
     $(grid_container).find(".column-container").resizable();
   },
 

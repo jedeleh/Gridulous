@@ -69,10 +69,7 @@ var Renderer = Class.$extend({
     var column_containers = $(this.configuration.grid()).find(".column-container");
     var columns = this.configuration.layout.columns;
     for (var i = 0; i < columns.length; i++) {
-      Console().log(row);
-      Console().log(columns[i].id);
       var data = row[columns[i].id];
-      Console().log(data);
       var cell = this._render_cell(data, columns[i], i, counter);
       $(column_containers[i]).append(cell);
     }
