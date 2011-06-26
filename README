@@ -6,7 +6,7 @@ Gridulous is intended to be a flexible, extendable grid plugin. There are a few 
 4. Tight jQuery integration so that the grid can be easily hacked apart as needed for your special needs.
 5. An object oriented approach to the organization of the code. This is intended to be an aid to navigating the source and making changes you might desire.
 
-At this time, this project is nowhere near ready for primetime but you are more than welcome to grab it and poke around at it.
+At this time, this project is nowhere near ready for primetime but you are more than welcome to grab it and poke around at it. There is a screenshot included in the root directory of the project called ss_01.png that shows what Gridulous looks like as of 6/26/11.
 
 Installation:
 
