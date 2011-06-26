@@ -12,6 +12,7 @@ gem 'haml-rails'
 gem 'jquery-rails'
 gem 'meta_where'
 gem 'formtastic', '2.0.0.rc1'
+gem 'jasmine'
 
 # Use unicorn as the web server
 # gem 'unicorn'

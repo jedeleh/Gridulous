@@ -90,6 +90,14 @@ var GridLayout = Configuration.$extend({
     return new GridColumn();
   },
 
+  set_columns: function(columns) {
+    for (var i = 0; i < columns.length; i++) {
+      column = new GridColumn();
+      column.unpickle(columns[i]);
+      this.columns.push(column);
+    }
+  },
+
   pickle: function() {
     columns = [];
     for (var i = 0; i < columns.length; i++) {
@@ -146,19 +154,66 @@ var GridQuery = Configuration.$extend({
   }
 });
 
-var GridButtons = Configuration.$extend({
+var GridButton = Configuration.$extend({
   __init__: function(enabled) {
     this.$super(enabled);
-    this.buttons = []; // { name: string, css_class: string, action: javascript method}
+    this.name = "";
+    this.css_class = "";
+    this.action = "";
+    this.icon = "";
   },
 
   pickle: function() {
     return {
-      "buttons": this.buttons
+      "name": this.name,
+      "css_class": this.css_class,
+      "action": this.action,
+      "icon": this.icon
     }
   },
 
   unpickle: function(representation) {
+    this.name = representation.name;
+    this.css_class = representation.css_class;
+    this.action = representation.action;
+    this.icon = representation.icon;
+  }
+});
+
+var GridButtons = Configuration.$extend({
+  __init__: function(enabled) {
+    this.$super(enabled);
+    this.buttons = []; // { name: string, css_class: string, action: javascript method, :icon: image for left side of button}
+  },
+
+  create_button: function() {
+    return new GridButton();
+  },
+
+  set_buttons: function(buttons) {
+    for (var i = 0; i < buttons.length; i++) {
+      button = new GridButton();
+      button.unpickle(buttons[i]);
+      this.buttons.push(button);
+    }
+  },
+
+  pickle: function() {
+    buttons = [];
+    for (var i = 0; i < this.buttons.length; i++) {
+      buttons.append(this.buttons[i].pickle());
+    }
+    return {
+      "buttons": buttons
+    }
+  },
+
+  unpickle: function(representation) {
+    for (var i = 0; i < representation.buttons.length; i++) {
+      button = new GridButton();
+      button.unpickle(representation.buttons[i]);
+      this.buttons.push(button);
+    }
    this.buttons = representation.buttons;
   }
 });

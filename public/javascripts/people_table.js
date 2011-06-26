@@ -1,91 +1,82 @@
 $(document).ready(function() {
-  grid_test = new GridFramework("people-grid");
-  grid_test.configuration.metadata.title = "People";
-  grid_test.configuration.metadata.method = "POST";
-  grid_test.configuration.metadata.action_uri = "/people/grid";
-  grid_test.configuration.size.width = 1000;
-  var layout = grid_test.configuration.layout;
+  // basic preparation
+  people_grid = new GridFramework("people-grid");
+
+  people_grid.configuration.metadata.title = "People";
+  people_grid.configuration.metadata.method = "POST";
+  people_grid.configuration.metadata.action_uri = "/people/grid";
+  people_grid.configuration.size.width = 1000;
+
   // setup the columns.
-  // last name column
-  column = layout.create_column();
-  column.display_name = "Last name";
-  column.id = "last_name";
-  column.sortable = true;
-  column.hide = false;
-  column.width = 200;
-  column.alignment = "center"
-  column.optional = false;
-  column.type = "link"
-  layout.columns.push(column);
-  // first name column
-  column = layout.create_column();
-  column.display_name = "First name";
-  column.id = "first_name";
-  column.sortable = true;
-  column.hide = false;
-  column.width = 200;
-  column.alignment = "center"
-  layout.columns.push(column);
-  // middle_initial column
-  column = layout.create_column();
-  column.display_name = "MI";
-  column.id = "middle_initial";
-  column.sortable = true;
-  column.hide = false;
-  column.width = 20;
-  column.alignment = "left"
-  layout.columns.push(column);
-  // email column
-  column = layout.create_column();
-  column.display_name = "Email";
-  column.id = "email";
-  column.sortable = true;
-  column.hide = false;
-  column.width = 150;
-  column.alignment = "center"
-  layout.columns.push(column);
-  // date of birth column
-  column = layout.create_column();
-  column.display_name = "DOB";
-  column.id = "date_of_birth";
-  column.sortable = true;
-  column.hide = false;
-  column.width = 100;
-  column.alignment = "center"
-  layout.columns.push(column);
-  // role column
-  column = layout.create_column();
-  column.display_name = "Role";
-  column.id = "role";
-  column.sortable = true;
-  column.hide = true;
-  column.width = 100;
-  column.alignment = "center"
-  layout.columns.push(column);
-  // default query
-  var query = grid_test.configuration.query;
-  // sort
+  var layout = people_grid.configuration.layout;
+  var layout_columns = [];
+  layout_columns.push({
+    display_name: "Last name", id: "last_name", alignment: "center", sortable: true, hide: false, width: 200, optional: false, type: "link"
+  });
+  layout_columns.push({
+    display_name: "First name", id: "first_name", sortable: true, hide: false, width: 200, alignment: "center"
+  });
+  layout_columns.push({
+    display_name: "MI", id: "middle_initial", sortable: true, hide: false, width: 20, alignment: "left"
+  });
+  layout_columns.push({
+    display_name: "Email", id: "email", sortable: true, hide: false, width: 150, alignment: "center"
+  });
+  layout_columns.push({
+    display_name: "DOB", id: "date_of_birth", sortable: true, hide: false, width: 100, alignment: "center"
+  });
+  layout_columns.push({
+    display_name: "Role", id: "role", sortable: true, hide: true, width: 100, alignment: "center"
+  });
+  layout.set_columns(layout_columns);
+
+  // setup the default query
+  var query = people_grid.configuration.query;
   query.sort_column = "last_name";
   query.sort_order = "ASC";
   query.filter_column = "last_name";
   query.filter_string = "";
   query.page = 1;
   query.page_size = 10;
-  var filters = grid_test.configuration.filters;
-  filters.filter_column_names.push({display_name: "Last name", id: "last_name"});
-  filters.filter_column_names.push({display_name: "First name", id: "first_name"});
-  filters.filter_column_names.push({display_name: "Email", id: "email"});
-  filters.filter_column_names.push({display_name: "Role", id: "role"});
-  var buttons = grid_test.configuration.buttons;
-  buttons.buttons.push({ name: "New", css_class: "new-button-class", action: new_action});
-  buttons.buttons.push({ name: "Edit", css_class: "edit-button-class", action: edit_action});
-  buttons.buttons.push({ name: "separator", css_class: null, action: null});
-  buttons.buttons.push({ name: "Delete", css_class: "delete-button-class", action: delete_action});
 
+  // filters dropdown
+  var filters = people_grid.configuration.filters;
+  filters.filter_column_names.push({
+    display_name: "Last name", id: "last_name"
+  });
+  filters.filter_column_names.push({
+    display_name: "First name", id: "first_name"
+  });
+  filters.filter_column_names.push({
+    display_name: "Email", id: "email"
+  });
+  filters.filter_column_names.push({
+    display_name: "Role", id: "role"
+  });
+
+  // buttons
+  var buttons = people_grid.configuration.buttons;
+  buttons_list = [];
+  buttons_list.push({
+    name: "New", css_class: "new-button-class", action: new_action, icon: null
+  });
+  buttons_list.push({
+    name: "Edit", css_class: "edit-button-class", action: edit_action, icon: null
+  });
+  buttons_list.push({
+    name: "separator", css_class: null, action: null, icon: null
+  });
+  buttons_list.push({
+    name: "Delete", css_class: "delete-button-class", action: delete_action, icon: null
+  });
+  buttons.set_buttons(buttons_list);
+
+  // button actions
   function new_action() { document.location = "/people/new";}
   function edit_action() { Console().log("edit button was pressed");}
   function delete_action() {Console().log("delete button was pressed"); }
 
-  grid_test.render_grid();
-  grid_test.execute_query();
+  // start things up
+  people_grid.render_grid();
+  people_grid.execute_query();
 });
