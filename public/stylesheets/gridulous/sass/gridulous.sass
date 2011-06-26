@@ -122,28 +122,33 @@
   border: 1px solid $GridBorderColor
   border-bottom: 0px
   cursor: move
-  height: 25px
+  height: 35px
   overflow: hidden
   position: relative
   width: auto
+  text-align: center
 
-.gridulous .heading-cell sorted
-  background: url($ColumnHeaderSortedBackground) repeat-x 0px -1px
-  border-bottom: 0px solid $GridBorderColor
+.gridulous .header-cell .sort-area
+  margin: 0 auto
+  position: relative
+  width: 16px
+  height: 12px
+  cursor: pointer
+
+.gridulous .header-cell .sort-area:hover
+  border: 1px solid $GridBorderColor
+
+.gridulous .sort-area span
+  position: relative
+  padding: 0px
+
+.gridulous .sort-area span:hover
+  padding-left: 2px
 
 .gridulous .heading-cell label
   position: relative
   top: 5px
   color: $GridTextColor
-
-
-/* sort images */
-
-.gridulous .sort-ascending
-  background: url($SortUpButton) no-repeat center top
-
-.gridulous .sort-descending
-  background: url($SortDownButton) no-repeat center top
 
 /* grid  body */
 .gridulous .content-container

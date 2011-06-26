@@ -37,9 +37,31 @@ var ColumnHeadersRenderer = Class.$extend({
     var heading = this.utils.new_div("cell-border clear-both header-cell");
     heading.attr("id", column.id);
     this.utils.add_style(["text-align"],["center"], heading);
+    var sort_image = this._build_sort_image(column);
     var span = this.utils.new_tag("span");
     heading.append(span);
+    heading.append(sort_image);
     span.text(column.display_name);
     return heading;
+  },
+
+  _build_sort_image: function(column) {
+    var div = this.utils.new_div("sort-area");
+    var span = this.utils.new_tag("span");
+
+    var sort_column_id = this.configuration.query.sort_column;
+    var sort_order = this.configuration.query.sort_order;
+    if (sort_column_id == column.id) {
+      if (sort_order == "ASC") {
+        span.addClass("ui-icon ui-icon-carat-1-n sorted ascending");
+      } else {
+        span.addClass("ui-icon ui-icon-carat-1-s sorted descending");
+      }
+    } else {
+        span.addClass("ui-icon ui-icon-carat-2-n-s");
+    }
+    div.append(span);
+
+    return div;
   }
 });

@@ -87,7 +87,8 @@ var Bindings = Class.$extend({
     var column_headings = $(grid_container).find(".header-cell");
     for (var i = 0; i < column_headings.length; i++) {
       var column = column_headings[i];
-      this._bind_column_heading(column, configuration, grid, grid_container);
+      var sort = $(column).find(".sort-area span");
+      this._bind_sort(sort, column, configuration, grid, grid_container);
     }
 
     // checkboxes on custom columns dialog IFF it's in use
@@ -141,8 +142,8 @@ var Bindings = Class.$extend({
     });
   },
 
-  _bind_column_heading: function(column, configuration, grid, grid_container) {
-    $(column).click(function() {
+  _bind_sort: function(sort, column, configuration, grid, grid_container) {
+    $(sort).click(function() {
       // what is the current sort & order
       var current_sort = configuration.query.sort_column;
       var current_order = configuration.query.sort_order;
@@ -151,24 +152,36 @@ var Bindings = Class.$extend({
       if (current_sort == column.id) {
         if (current_order == "ASC") {
           configuration.query.sort_order = "DESC";
-          $(column).find("div").removeClass("sort-ascending");
-          $(column).find("div").addClass("sort-descending");
+          $(sort).find("div").removeClass("ascending");
+          $(sort).removeClass("ui-icon-carat-1-n");
+          $(sort).removeClass("ui-icon-carat-2-n-s");
+          $(sort).find("div").addClass("descending");
+          $(sort).addClass("ui-icon-carat-1-s");
         }
         else {
           configuration.query.sort_order = "ASC";
-          $(column).find("div").removeClass("sort-descending");
-          $(column).find("div").addClass("sort-ascending");
+          $(sort).removeClass("ui-icon-carat-1-s");
+          $(sort).removeClass("ui-icon-carat-2-n-s");
+          $(sort).addClass("ui-icon-carat-1-n");
+          $(sort).find("div").removeClass("descending");
+          $(sort).find("div").addClass("ascending");
         }
       }
       else {
         // they aren't the same, turn off the old sort column styles
-        $(grid_container).find("th div").removeClass("sort-ascending");
-        $(grid_container).find("th div").removeClass("sort-descending");
-        $(grid_container).find("th div").removeClass("sorted");
+        $(grid_container).find(".sorted").removeClass("ui-icon-carat-1-n");
+        $(grid_container).find(".sorted").removeClass("ui-icon-carat-1-s");
+        $(grid_container).find(".sorted").addClass("ui-icon-carat-2-n-s");
+        $(grid_container).find(".sorted").removeClass("ascending");
+        $(grid_container).find(".sorted").removeClass("descending");
+        $(grid_container).find(".sorted").removeClass("sorted");
 
         // then turn on the new ones
-        $(column).find("div").addClass("sort-ascending");
-        $(column).find("div").addClass("sorted");
+        $(sort).addClass("sorted");
+        $(sort).addClass("ascending");
+        $(sort).addClass("ui-icon-carat-1-n");
+        $(sort).removeClass("ui-icon-carat-1-s");
+        $(sort).removeClass("ui-icon-carat-2-n-s");
         configuration.query.sort_order = "ASC";
 
       }
