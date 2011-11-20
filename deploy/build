@@ -1,0 +1,14 @@
+cp ../public/javascripts/gridulous.coffee coffeescript/
+cp ../public/javascripts/gridulous.js javascript/
+cp ../public/stylesheets/gridulous-sass/gridulous.sass sass/
+cp ../public/stylesheets/gridulous-sass/generic.sass sass/
+cp ../public/stylesheets/gridulous-sass/colors.sass sass/
+cp ../public/stylesheets/gridulous-sass/fonts.sass sass/
+cp ../public/stylesheets/gridulous-sass/images.sass sass/
+cp ../public/stylesheets/colors.css css/
+cp ../public/stylesheets/images.css css/
+cp ../public/stylesheets/fonts.css css/
+cp ../public/stylesheets/generic.css css/
+cp ../public/stylesheets/gridulous.css css/
+
+zip -r gridulous-deploy.zip .

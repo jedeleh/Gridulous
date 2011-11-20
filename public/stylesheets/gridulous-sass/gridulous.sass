@@ -1,0 +1,282 @@
+@import 'colors'
+@import 'fonts'
+@import 'images'
+
+// reset all the various ccs entities of interest so that we don't inherit anything unwanted...
+.gridulous ul, .gridulous ol, .gridulous li, .gridulous fieldset, .gridulous legend, .gridulous input, .gridulous textarea, .gridulous select, .gridulous p, .gridulous td
+  margin: 0px
+  padding: 0px
+
+.gridulous
+  @include BaseFont(11px)
+  position: relative
+  border: 0px solid $OuterBorderColor
+  overflow: hidden
+  color: $GridTextColor
+
+.gridulous select, button, input
+  @include BaseFont(11px)
+  color: $GridTextColor
+
+/* Title bar */
+
+.gridulous .title-bar
+  background: url($TitleBarBackground) repeat-x top
+  border: 1px solid $GridBorderColor
+  border-bottom: 0px
+  height: 30px
+  font-weight: bold
+  display: block
+  overflow: hidden
+  white-space: nowrap
+  position: relative
+
+.gridulous .title-span
+  color: $GridTextColor
+  padding: 6px
+  white-space: nowrap
+
+/* the buttons on the title bar are at the far right end--the filter/search
+/* button, the column chooser button and the table minimize/maximize button
+.gridulous .title-bar-button
+  height: 22px
+  width: 22px
+  overflow: hidden
+  cursor: pointer
+
+.gridulous .title-bar-button:hover
+  border: 1px solid $HoverBarColor
+  background-position: left -2px
+  border-color: $HoverBarColor
+
+/* if you want to add more buttons here, you have to use absolute positioning,
+/* and the formula I used is  here: (button index * button size) + (button
+/* index * 5) + 3 To make this work, the index is zero based and starts from
+/* the right most button
+
+/* Title bar search button: button "index" 2
+.gridulous .title-bar-search
+  position: absolute
+  top: 4px
+  right: 57px
+
+/* Title bar column configuration button: button "index" 1
+.gridulous .title-bar-column-configure
+  position: absolute
+  top: 4px
+  right: 30px
+
+/* Title bar hide/show button: button "index" 0
+.gridulous .title-bar-toggle
+  position: absolute
+  top: 4px
+  right: 3px
+
+/* button tool bar */
+.gridulous .button-bar
+  background: $GridBackgroundColor url($ButtonBarBackground) repeat-x top
+  position: relative
+  border: 1px solid $GridBorderColor
+  border-bottom: 0px
+  overflow: hidden
+
+.gridulous .button-bar-inner
+  float: left
+  clear: both
+  padding: 1px
+
+/* button tool bar button */
+.gridulous .button-bar-button
+  float: left
+  display: block
+  cursor: pointer
+  padding: 1px
+
+.gridulous .button-bar-button:hover,.button-bar-button.fbOver
+  padding: 0px
+  border: 1px solid $HoverBarColor
+
+.gridulous .button-bar-button span
+  float: left
+  display: block
+  padding: 3px
+
+/* button tool bar separator*/
+.gridulous .button-separator
+  float: left
+  height: 24px
+  border-left: 1px solid $GridBorderColor
+  border-right: 1px solid $RightBorderColor
+  margin: 1px
+
+/* column container -- this is the vertical div that holds the cells in a column
+.gridulous column-container
+  background: $WhiteBackgroundColor
+  overflow: auto
+  position: relative
+
+/* column headings */
+.gridulous .header-cell
+  background: $GridBackgroundColor url($ColumnHeaderBackground) repeat-x bottom
+  border: 1px solid $GridBorderColor
+  border-bottom: 0px
+  cursor: move
+  height: 35px
+  overflow: hidden
+  position: relative
+  width: auto
+  text-align: center
+
+.gridulous .header-cell .sort-area
+  margin: 0 auto
+  position: relative
+  width: 16px
+  height: 12px
+  cursor: pointer
+
+.gridulous .header-cell .sort-area:hover
+  border: 1px solid $GridBorderColor
+
+.gridulous .sort-area span
+  position: relative
+  padding: 0px
+
+.gridulous .sort-area span:hover
+  padding-left: 2px
+
+.gridulous .heading-cell label
+  position: relative
+  top: 5px
+  color: $GridTextColor
+
+/* grid  body */
+.gridulous .content-container
+  position: relative
+  border: 1px solid $GridBorderColor
+  border-top: 0px
+  border-bottom: 0px
+  overflow: auto
+
+.gridulous .content-cell
+  border: 1px solid $GridBorderColor
+  border-top: 0px
+  height: 25px
+  width: auto
+  overflow: hidden
+  position: relative
+
+.gridulous .content-cell .even-row
+  background: $WhiteBackgroundColor
+  height: 25px
+  overflow: hidden
+
+.gridulous .content-cell .odd-row
+  background: $OddCellBackgroundColor
+  height: 25px
+  overflow: hidden
+
+.gridulous .content-cell label
+  position: relative
+  top: 5px
+  left: 2px
+  color: $GridTextColor
+
+
+.gridulous .border-test
+  border: 1px solid red
+
+/* search dialog */
+.gridulous .search-div
+  position: relative
+
+
+.gridulous .search-div-inner
+  float: left
+  clear: both
+  padding: 5px
+  padding-left: 5px
+  width: 1024px
+
+.gridulous .search-div-inner fieldset
+  height: 200px
+  width: 300px
+  color: $GridTextColor
+
+.gridulous .search-div-inner fieldset legend
+  color: $GridTextColor
+
+
+/* pagination bar */
+.gridulous .pagination-div
+  background: url($PaginationBarBackground) repeat-x 0 -1px
+  border: 1px solid $GridBorderColor
+  overflow: hidden
+  white-space: nowrap
+  position: relative
+  height: 35px
+
+.gridulous .pagination-div-inner
+  margin: 3px
+  margin-left: -2px
+  float: left
+  width: 1024px
+
+.gridulous .pagination-group
+  float: left
+  background: none
+  margin: 0px 5px
+  padding-top: 4px
+
+.gridulous .pagination-select
+  padding-top: 3px
+
+.gridulous .pagination-image-reload
+  background: url($ReloadPageButton) no-repeat center
+
+.gridulous .pagination-image-loading
+  background: url(images/load.gif) no-repeat center
+
+.gridulous .pagination-button
+  float: left
+  width: 22px
+  height: 22px
+  border: 0px
+  cursor: pointer
+  overflow: hidden
+
+.gridulous .pagination-button-adjust
+  padding-top: 1px
+
+.gridulous .pagination-button:hover
+  width: 20px
+  height: 20px
+  border: 1px solid $HoverBarColor
+  cursor: pointer
+
+.gridulous .pagination-status
+  position: relative
+  overflow: visible
+
+.gridulous .pagination-counter
+  padding: 3px
+  position: relative
+  overflow: visible
+
+.gridulous .displaying-span
+  padding-top: 3px
+  height: 15px
+  display: block
+
+/* utility classes -- use these for classes that we want to toggle
+/* so that we're not forced to play games with editing the style string
+.generic-show
+  display: block
+
+.generic-show-inline
+  display: inline
+
+.generic-hide
+  display: none
+
+.clear-both
+  clear: both

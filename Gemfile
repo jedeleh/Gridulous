@@ -13,6 +13,7 @@ gem 'jquery-rails'
 gem 'meta_where'
 gem 'formtastic', '2.0.0.rc1'
 gem 'jasmine'
+gem 'barista'
 
 # Use unicorn as the web server
 # gem 'unicorn'

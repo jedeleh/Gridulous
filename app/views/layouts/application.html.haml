@@ -3,11 +3,11 @@
   %head
     %title Gridulous
     = stylesheet_link_tag :all
-    = stylesheet_link_tag 'jquery-ui'
+    = load_css_for_directory 'gridulous'
     = javascript_include_tag 'jquery.js'
     = javascript_include_tag 'jquery-ui.min.js'
+    = javascript_include_tag 'gridulous.js'
     = load_javascript_for_directory 'vendor'
-    = load_javascript_for_directory 'gridulous'
     /= load_javascript_for_directory "#{controller_name}/#{action_name}"
     = csrf_meta_tag
   %body
