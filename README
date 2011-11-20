@@ -8,29 +8,27 @@ Gridulous is intended to be a flexible, extendable grid plugin. There are a few 
 
 At this time, this project is nowhere near ready for primetime but you are more than welcome to grab it and poke around at it. There is a screenshot included in the root directory of the project called ss_01.png that shows what Gridulous looks like as of 6/26/11.
 
-Installation:
-
-Other plugins you will need:
+Dependencies:
+-------------
 1. jQuery                    (http://jquery.com)
 2. jQuery-UI                 (http://jqyueryui.com
-3. Classy                    (http://classy.pocoo.org)
-4. SASS                      (http://sass-lang.com)
 
-The checked in version is on top of a simple Ruby on Rails project but with the four above tools you can use it anywhere you want. The RoR part uses a mostly standard set up. The big difference is that I prefer HAML to ERB.
-
-Once you have those things installed download the gridulous.zip and put the various parts where you want in your project.
-
-Alternatively you can grab the contents of the following directories:
-
-public/stylesheets/gridulous/
-public/stylesheets/gridulous/sass/
-public/stylesheets/images/
-public/javascripts/gridulous/
+Coffeescript and SASS:
+---------------------
+Gridulous is authored in Coffeescript using SASS for the stylesheets. In the deployment zip there are directories for Coffeescript, Javascript, CSS and SASS so that you can use the plugin as you like. If you do not wish to install or use Coffeescript and SASS, just grab the precompiled things out of the deploy zip.
 
 Please note that the images that begin with "ui-" are jQuery-UI images and should be replaced with whatever custom theme you roll. The other images are temporary images that I'll be replacing shortly. I've just been using them in my development environment--I borrowed them from flexigrid (http://flexigrid.info)--the grid plugin that really has set the standard in my opinion.
 
-Eventually I'll package these things up in a zip file but for now, take it at your own risk. I'll gladly answer any questions to help you get things going though...
-
 For a working example of how to configure Gridulous, see people-table.js in public/javascripts. Once you have your own configuration built up, take a quick peek at app/views/people/index.html.haml to see what you have to add to the file to get it working. It's not painful.
 
-Forgive the completely chaotic project--I'm still getting it up and running.
+On my list of things to do:
+
+1. replace all background images with CSS gradient classes
+2. replace HAML dialogs with generic HTML files
+3. conditionalize inclusion of the various widget components--only show the pagination bar if the flag is set in the configuration, etc.
+4. allow injection of customized classes through the configuration. Easiest: use it with styles provided. Less easy: specify css classes via configuration to customize the appearance. Even less easy: direct manipulation of the .sass or .css files to fully customize the appearance.
+5. custom search filters are just a gleam in my eyes at the moment.
+
+My aim is that at the end of the day the only hard external dependencies will be jQuery and jQuery-UI. At the moment HAML is required for the column selection and search dialogs.
+
+Any feedback and/or questions are completely welcomed!
